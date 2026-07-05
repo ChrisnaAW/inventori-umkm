@@ -16,18 +16,22 @@ const Login = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      const res = await api.post('/auth/login', form)
-      login(res.data.token, res.data.user)
-      navigate('/dashboard')
+      const res = await api.post('/auth/login', form);
+
+      console.log('Response login:', res.data);
+
+      login(res.data.token, res.data.user);
+      navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login gagal')
+      console.error('Error login:', err);
+      setError(err.response?.data?.message || 'Login gagal');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center p-4">
