@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const pool = mysql2.createPool({
   host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
@@ -13,7 +14,7 @@ const pool = mysql2.createPool({
 pool
   .getConnection()
   .then((conn) => {
-    console.log("Database terhubung...");
+    console.log("Database terhubung!");
     conn.release();
   })
   .catch((err) => {
