@@ -5,12 +5,18 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// ─── CORS ───────────────────────────────────────────
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://inventori-umkm.vercel.app/"],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
+app.options("*", cors());
+
 app.use(express.json());
 require("./config/database");
 
@@ -22,9 +28,9 @@ app.use("/api/reports", require("./routes/reportRoutes"));
 app.use("/api/suppliers", require("./routes/supplierRoutes"));
 
 app.get("/", (req, res) => {
-  res.json({ message: "Server inventori UMKM berjalan..." });
+  res.json({ message: "Server Inventori UMKM berjalan!" });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
